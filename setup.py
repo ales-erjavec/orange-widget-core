@@ -32,6 +32,7 @@ SETUP_REQUIRES = (
 INSTALL_REQUIRES = (
     "setuptools",
     "orange-canvas-core>=0.0.6,<0.1",
+    "AnyQt",
 )
 
 CLASSIFIERS = (

@@ -7,13 +7,13 @@ import types
 from functools import reduce
 from collections import namedtuple
 
-from PyQt4.QtCore import (
+from AnyQt.QtCore import (
     Qt, QByteArray, QEventLoop, pyqtSignal as Signal, pyqtProperty
 )
-from PyQt4.QtGui import (
-    QDialog, QPixmap, QLabel, QVBoxLayout, QSizePolicy,
-    qApp, QFrame, QStatusBar, QHBoxLayout, QStyle, QApplication,
-    QAction
+from AnyQt.QtGui import QPixmap
+from AnyQt.QtWidgets import (
+    QDialog, QLabel, QVBoxLayout, QSizePolicy, QFrame, QStatusBar,
+    QHBoxLayout, QStyle, QApplication, QAction, qApp
 )
 
 from orangecanvas.registry import description as _description
@@ -134,7 +134,7 @@ class OutputSignal(_OutputSignal):
             return specargs
         else:
             raise TypeError("tuple, dict or OutputSignal expected "
-                            "(got {0!r})".format(type(args)))
+                            "(got {0!r})".format(type(specargs)))
 
 
 def _asmappingproxy(mapping):
@@ -372,7 +372,7 @@ class OWWidget(QDialog, metaclass=WidgetMetaClass):
 
             if restored and not self.windowState() & \
                     (Qt.WindowMaximized | Qt.WindowFullScreen):
-                space = qApp.desktop().availableGeometry(self)
+                space = QApplication.desktop().availableGeometry(self)
                 frame, geometry = self.frameGeometry(), self.geometry()
 
                 #Fix the widget size to fit inside the available space

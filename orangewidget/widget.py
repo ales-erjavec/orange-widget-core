@@ -218,7 +218,7 @@ class OWWidget(QDialog, metaclass=WidgetMetaClass):
 
     savedWidgetGeometry = settings.Setting(None)
 
-    def __new__(cls, parent=None, *args, **kwargs):
+    def __new__(cls, *args, captionTitle=None, **kwargs):
         self = super().__new__(cls, None, cls.get_flags())
         QDialog.__init__(self, None, self.get_flags())
 
@@ -235,8 +235,11 @@ class OWWidget(QDialog, metaclass=WidgetMetaClass):
         OWWidget.widget_id += 1
         self.widget_id = OWWidget.widget_id
 
-        if self.name:
-            self.setCaption(self.name)
+        captionTitle = self.name if captionTitle is None else captionTitle
+
+        # must be set without invoking setCaption
+        self.captionTitle = captionTitle
+        self.setWindowTitle(captionTitle)
 
         self.setFocusPolicy(Qt.StrongFocus)
 

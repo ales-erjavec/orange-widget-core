@@ -54,8 +54,9 @@ class WidgetsScheme(Scheme):
     propagation to an instance of `WidgetsSignalManager`.
     """
 
-    def __init__(self, parent=None, title=None, description=None, env={}):
-        Scheme.__init__(self, parent, title, description, env=env)
+    def __init__(self, parent=None, title=None, description=None, env={},
+                 **kwargs):
+        Scheme.__init__(self, parent, title, description, env=env, **kwargs)
 
         self.signal_manager = WidgetsSignalManager(self)
         self.widget_manager = WidgetManager()

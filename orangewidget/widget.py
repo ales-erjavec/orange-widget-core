@@ -389,6 +389,16 @@ class OWWidget(QDialog, metaclass=WidgetMetaClass):
                     y = max(0, space.height() / 2 - height / 2)
 
                     self.move(x, y)
+
+        # Mark as explicitly moved/resized if not already. QDialog would
+        # otherwise adjust position/size on subsequent hide/show
+        # (move/resize events coming from the window manager do not set
+        # these flags).
+        if not self.testAttribute(Qt.WA_Moved):
+            self.setAttribute(Qt.WA_Moved)
+        if not self.testAttribute(Qt.WA_Resized):
+            self.setAttribute(Qt.WA_Resized)
+
         return restored
 
     def __updateSavedGeometry(self):
@@ -427,7 +437,7 @@ class OWWidget(QDialog, metaclass=WidgetMetaClass):
     def showEvent(self, ev):
         QDialog.showEvent(self, ev)
         if self.save_position and not self.__was_restored:
-            # Restore saved geometry on show
+            # Restore saved geometry on (first) show
             self.__restoreWidgetGeometry()
             self.__was_restored = True
 

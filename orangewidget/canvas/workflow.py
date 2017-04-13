@@ -574,7 +574,7 @@ class WidgetManager(QObject):
         if event.type() == events.NodeEvent.NodeActivateRequest and \
                receiver in self.__widget_for_node:
             widget = self.__widget_for_node[receiver]
-            widget.show()
+            widget.showNormal()
             widget.raise_()
             widget.activateWindow()
 
